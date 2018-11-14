@@ -1,0 +1,27 @@
+{
+  "name": "proyectoJS",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "inquirer": "^6.2.0",
+    "rxjs": "^6.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwar95/proyectoJS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edwar95/proyectoJS/issues"
+  },
+  "homepage": "https://github.com/edwar95/proyectoJS#readme"
+}
