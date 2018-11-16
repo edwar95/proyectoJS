@@ -97,8 +97,8 @@ export const deleteTeam=(team:string)=>{
                 readFile(fileName)
                     .then(data=>{
                         const teamArray= JSON.parse(data);
-                        teamArray.push(team);
-                        const content= JSON.stringify(teamArray, null,'');
+                        teamArray.splice(teamArray.indexOf(team),1);
+                        const content = JSON.stringify(teamArray, null,'');
                         return writeFile(fileName,content);
                     })
                     .then(message=>{

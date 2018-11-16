@@ -3,6 +3,7 @@ exports.__esModule = true;
 var others_1 = require("./others");
 var colors = require("colors");
 var app_1 = require("./app");
+var operators_1 = require("rxjs/operators");
 exports.output = [];
 var Team = /** @class */ (function () {
     function Team(teamName, fundationYear, players) {
@@ -62,5 +63,39 @@ exports.createTeam = function (team) {
         app_1.show();
     })["catch"](function (error) {
         console.log('Ocurrió un error', error);
+    });
+};
+exports.updateTeam = function (team) {
+    others_1.readTeamFile$('teamDB.json')
+        .pipe(operators_1.filter(function (data) {
+        return data._teamName != team._teamName;
+    }))
+        .subscribe();
+};
+exports.deleteTeam = function (team) {
+    var fileName = 'teamDB.json';
+    others_1.readTeamFile$(fileName)
+        .pipe(operators_1.find(function (data) {
+        return data._teamName === team;
+    }))
+        .subscribe(function (team) {
+        others_1.readFile(fileName)
+            .then(function (data) {
+            var teamArray = JSON.parse(data);
+            teamArray.splice(teamArray.indexOf(team), 1);
+            var content = JSON.stringify(teamArray, null, '');
+            return others_1.writeFile(fileName, content);
+        })
+            .then(function (message) {
+            console.log(colors.bgYellow.black('Equipo eliminado '));
+            others_1.readTeamFile$(fileName)
+                .subscribe(function (team) {
+                console.log('\n');
+                console.log(team._teamName, team._fundationYear.toString(), team._players.toString());
+            });
+            app_1.show();
+        })["catch"](function (error) {
+            console.log('Ocurrió un error', error);
+        });
     });
 };

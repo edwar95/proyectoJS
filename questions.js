@@ -67,3 +67,8 @@ exports.passwordPrompt = {
     message: 'Ingrese la contraseña: ',
     mask: '*'
 };
+exports.deletePrompt = {
+    type: 'input',
+    name: 'teamName',
+    message: 'Nombre del equipo que desea eliminar'
+};

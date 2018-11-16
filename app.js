@@ -40,7 +40,10 @@ exports.show = function () {
                 console.log('Actualizar equipo');
                 break;
             case 'Eliminar equipo':
-                console.log('Eliminar equipo');
+                inquirer_1.prompt(questions_1.deletePrompt).then(function (answers) {
+                    var teamName = answers.teamName;
+                    team_1.deleteTeam(teamName);
+                });
                 break;
             case 'Atrás':
                 console.log('Atrás');
