@@ -42,3 +42,19 @@ exports.readFile$ = function (fileName) {
         });
     });
 };
+exports.readTeamFile$ = function (fileName) {
+    return rxjs_1.Observable.create(function (observer) {
+        fs.readFile(fileName, 'utf-8', function (error, data) {
+            if (error) {
+                observer.error(error);
+            }
+            else {
+                var teams = JSON.parse(data);
+                teams.forEach(function (team) {
+                    observer.next(team);
+                });
+                observer.complete();
+            }
+        });
+    });
+};

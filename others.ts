@@ -1,8 +1,8 @@
 
 import * as fs from 'fs';
-import {user, UserInterface} from "./user";
+import {User, UserInterface} from "./user";
 import {Observable, Observer} from "rxjs";
-
+import {TeamInterface} from "./team";
 
 export const readFile = (fileName: string ): Promise<string> =>{
     return new Promise((resolve, reject)=>{
@@ -47,4 +47,21 @@ export const readFile$ = (fileName: string): Observable<UserInterface> =>{
          }
      )
   });
+};
+
+export const readTeamFile$ = (fileName: string): Observable<TeamInterface> =>{
+    return Observable.create((observer: Observer<any>)=>{
+        fs.readFile(fileName,'utf-8', (error: NodeJS.ErrnoException, data: string)=>{
+                if(error){
+                    observer.error(error);
+                }else{
+                    const teams: TeamInterface[] = JSON.parse(data);
+                    teams.forEach(team=>{
+                        observer.next(team)
+                    });
+                    observer.complete();
+                }
+            }
+        )
+    });
 };
